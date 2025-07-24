@@ -7,7 +7,7 @@ public class CharacterMovement : MonoBehaviour
     public float moveSpeed = 5f;
     private Rigidbody2D rb;
 
-    private float currentScale = 0.2740236f;
+    private float currentScale = 0.15f;
     private Vector3 targetScale;
 
     private bool shouldScale = false;
@@ -56,9 +56,9 @@ public class CharacterMovement : MonoBehaviour
 
     public void ScaleArtir()
     {
-        currentScale += 0.1f;
+        currentScale += 0.01f;
         targetScale = new Vector3(currentScale, currentScale, 1f);
         shouldScale = true;
-        CameraFollow.Instance.IncreaseSize(0.1f);
+        CameraFollow.Instance.IncreaseSize(0.01f);
     }
 }
