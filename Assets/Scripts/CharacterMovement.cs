@@ -12,6 +12,7 @@ public class CharacterMovement : MonoBehaviour
 
     private bool shouldScale = false;
 
+
     private void Awake()
     {
         Instance = this;
