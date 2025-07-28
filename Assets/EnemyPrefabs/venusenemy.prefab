@@ -100,7 +100,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027318983117143140}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -170,6 +170,7 @@ MonoBehaviour:
   nameText: {fileID: 742384045716731371}
   score: 0
   growFactor: 0.1
+  growSpeed: 5
 --- !u!114 &-7400174685180574670
 MonoBehaviour:
   m_ObjectHideFlags: 0

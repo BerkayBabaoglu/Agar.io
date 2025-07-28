@@ -6,7 +6,7 @@ public class PlayerSkinSelect : MonoBehaviour
     private SpriteRenderer playerSprite;
     public Sprite[] customSprite;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         playerSprite = player.GetComponent<SpriteRenderer>();

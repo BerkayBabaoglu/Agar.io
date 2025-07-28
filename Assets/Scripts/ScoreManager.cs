@@ -6,7 +6,7 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance { get; private set; }
 
     public TextMeshProUGUI scoreText;
-    private int score = 0;
+    public int score = 0;
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class ScoreManager : MonoBehaviour
         UpdateScoreText();
     }
 
-    void UpdateScoreText()
+    public void UpdateScoreText()
     {
         scoreText.text = "Puan : " + score;
     }

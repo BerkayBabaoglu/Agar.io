@@ -48,4 +48,24 @@ public class Enemy : MonoBehaviour
         targetScale = new Vector3 (currentScale, currentScale, 1);
         shouldScale = true;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Enemy otherEnemy = collision.GetComponent<Enemy>();
+
+        if (otherEnemy != null && otherEnemy != this)
+        {
+            if(score > otherEnemy.score)
+            {
+                AddScore(otherEnemy.score);
+
+                float otherScale = otherEnemy.transform.localScale.x;
+                currentScale += otherScale;
+                targetScale = new Vector3(currentScale, currentScale, 1);
+                shouldScale = true;
+
+                otherEnemy.gameObject.SetActive(false);
+            }
+        }
+    }
 }
