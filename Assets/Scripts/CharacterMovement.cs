@@ -121,4 +121,13 @@ public class CharacterMovement : MonoBehaviour
     {
         return isInvulnerable;
     }
+
+    // Oyuncu öldüğünde çağrılacak metod
+    public void PlayerDied()
+    {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.PlayerDied(ScoreManager.Instance.playerName);
+        }
+    }
 }

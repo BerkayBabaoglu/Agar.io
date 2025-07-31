@@ -8,6 +8,8 @@ public class PlayerNameDisplay : MonoBehaviour
     public TextMeshProUGUI nameText;
     public GameObject player;
 
+    private string lastPlayerName = "";
+
     private void Start()
     {
         UpdatePlayerName();
@@ -20,6 +22,14 @@ public class PlayerNameDisplay : MonoBehaviour
         if (!string.IsNullOrEmpty(nameInputField.text))
         {
             nameText.text = nameInputField.text;
+            
+            // Oyuncu adı değiştiğinde ScoreManager'a aktar
+            if (ScoreManager.Instance != null && nameInputField.text != lastPlayerName)
+            {
+                lastPlayerName = nameInputField.text;
+                ScoreManager.Instance.SetPlayerName(nameInputField.text);
+                Debug.Log($"Oyuncu adı değiştirildi: {nameInputField.text}");
+            }
         }
     }
 

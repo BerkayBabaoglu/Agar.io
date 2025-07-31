@@ -11,6 +11,8 @@ public class EnemyManager : MonoBehaviour
 
     private List<string> enemyNames = new List<string>();
 
+    public static List<Enemy> allEnemies = new List<Enemy>();
+
     private void Start()
     {
         LoadNamesFromJSON();
@@ -52,9 +54,45 @@ public class EnemyManager : MonoBehaviour
             {
                 Debug.LogWarning($"Enemy prefab at index {i} is missing the Enemy script.");
             }
-        }
-    }
 
+            EnemyManager.allEnemies.Add(enemyScript);
+        }
+        
+        // Düşmanlar spawn edildikten sonra aktif oyuncu sayısını güncelle
+        UpdateActivePlayerCount();
+    }
+    
+    void UpdateActivePlayerCount()
+    {
+        int activePlayers = 0;
+        int totalPlayers = 0;
+        
+        // Düşmanları say
+        foreach (var enemy in allEnemies)
+        {
+            if (enemy != null && enemy.gameObject.activeSelf)
+            {
+                totalPlayers++;
+                if (!enemy.isDead)
+                {
+                    activePlayers++;
+                }
+            }
+        }
+        
+        // Oyuncuyu da ekle
+        totalPlayers++;
+        if (ScoreManager.Instance != null)
+        {
+            var playerEntry = ScoreManager.allEntries.Find(e => e.name == ScoreManager.Instance.playerName && e.isPlayer);
+            if (playerEntry != null && !playerEntry.isDead)
+            {
+                activePlayers++;
+            }
+        }
+        
+        ScoreManager.UpdateGameState(true, activePlayers, totalPlayers);
+    }
 }
 
 [System.Serializable]
