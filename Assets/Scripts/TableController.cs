@@ -14,11 +14,10 @@ public class TableController : MonoBehaviour
     private Vector2 closedPosition;
 
     [Header("Optional: Açma/Kapama butonu")]
-    public RectTransform toggleButton; // Bu butonun konumuna göre panel saða mý sola mý açýlacak, karar verilir
+    public RectTransform toggleButton;
 
     void Start()
     {
-        // Eðer toggleButton atanmýþsa ona göre panelin yönünü belirle
         if (toggleButton != null)
         {
             bool isButtonOnRight = toggleButton.position.x > Screen.width / 2f;

@@ -73,13 +73,10 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector2 moveDirection = Vector2.zero;
 
-        if (Input.GetMouseButton(0))
+        // Joystick kontrolü - hem editörde hem mobilde çalışır
+        if (JoystickController.Instance != null)
         {
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mouseWorldPos.z = 0;
-
-            Vector2 direction = (mouseWorldPos - transform.position).normalized;
-            moveDirection = direction;
+            moveDirection = JoystickController.Instance.Direction();
         }
 
         rb.linearVelocity = moveDirection * moveSpeed;
@@ -122,7 +119,6 @@ public class CharacterMovement : MonoBehaviour
         return isInvulnerable;
     }
 
-    // Oyuncu öldüğünde çağrılacak metod
     public void PlayerDied()
     {
         if (ScoreManager.Instance != null)
