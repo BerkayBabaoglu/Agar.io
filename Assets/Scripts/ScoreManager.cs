@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using UnityEditor.iOS.Extensions.Common;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -140,6 +139,23 @@ public class ScoreManager : MonoBehaviour
         if (Instance != null)
         {
             Instance.isDead = true;
+            
+            // Convert score to money when player dies
+            if (CurrencyManager.Instance != null)
+            {
+                CurrencyManager.Instance.ConvertScoreToMoney(Instance.score);
+            }
+        }
+    }
+    
+    // Oyuncu yeniden başladığında çağrılacak metod
+    public static void PlayerRespawned()
+    {
+        if (Instance != null)
+        {
+            Instance.isDead = false;
+            Instance.score = 0;
+            Instance.UpdateScoreText();
         }
     }
 

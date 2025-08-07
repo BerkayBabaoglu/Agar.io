@@ -9,12 +9,22 @@ public class StartGame : MonoBehaviour
 
     public void Starting()
     {
-        StartCoroutine(Wait());
 
+        StartCoroutine(Wait());
         //sceneGameplay.SetActive(true);
 
         GameManager.Instance.GameLoad();
 
+        
+
+        if (GameManager.Instance.Menu != null)
+        {
+            GameManager.Instance.Menu.SetActive(false);
+            Time.timeScale = 1f;
+        }
+            
+        else
+            this.gameObject.SetActive(false);
         //karakter oldugunde menuyu tekrardan aktif ederiz.
 
     }

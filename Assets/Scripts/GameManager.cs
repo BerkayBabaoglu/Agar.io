@@ -1,4 +1,6 @@
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
@@ -10,10 +12,16 @@ public class GameManager : MonoBehaviour
 
     public CharacterMovement character;
 
+    public GameObject pauseMenu;
+    private bool isActiveMenu;
+
     private void Awake()
     {
         Instance = this;
+        isActiveMenu = Menu.activeSelf;
     }
+
+
 
     public void GameLoad()
     {
@@ -70,8 +78,20 @@ public class GameManager : MonoBehaviour
         {
             character.gameObject.SetActive(true);
             
-            ScoreManager.Instance.score = 0;
-            ScoreManager.Instance.UpdateScoreText();
+            // Reset player state
+            ScoreManager.PlayerRespawned();
+            
+            // Update currency UI when returning to menu
+            if (CurrencyManager.Instance != null)
+            {
+                CurrencyManager.Instance.RefreshUI();
+            }
+            
+            // Update costume UI when returning to menu
+            if (CostumeShop.Instance != null)
+            {
+                CostumeShop.Instance.ApplySelectedCostume();
+            }
             
             character.currentScale = 0.15f;
             character.transform.localScale = new Vector3(0.15f, 0.15f, 1f);
@@ -119,5 +139,29 @@ public class GameManager : MonoBehaviour
         EnemyManager.allEnemies.Clear();
         
         Debug.Log("Lider tablosu temizlendi");
+    }
+
+    public void PauseGame()
+    {
+        pauseMenu.gameObject.SetActive(true);
+        Time.timeScale = 0f;
+
+    }
+
+    public void Hayir()
+    {
+        pauseMenu.gameObject.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void Evet()
+    {
+        // Make sure currency system saves before reloading scene
+        if (CurrencyManager.Instance != null)
+        {
+            CurrencyManager.Instance.ForceSave();
+        }
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

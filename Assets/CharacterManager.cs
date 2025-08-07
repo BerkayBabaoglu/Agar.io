@@ -43,6 +43,9 @@ public class CharacterManager : MonoBehaviour
                 float otherScale = enemy.transform.localScale.x;
                 otherScale += character.currentScale;
 
+                // Call PlayerDied before disabling the character
+                ScoreManager.PlayerDied(ScoreManager.Instance.playerName);
+                
                 character.gameObject.SetActive(false);
             }            
 
